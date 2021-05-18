@@ -1,21 +1,22 @@
 import re
 
 # (^[A-z]\w+)(\:\=)\s
-def isAttribuitionClass(statement):
-    re.compile("")
-    return True
+def isAttributionClass(statement):
+    varStatement = re.compile("(?<=(^var\s))[A-z]{0,}\w+") # identify var foo
+    defaultStatement = re.compile("^[A-z]{0,}(?<!\:\=)\w+") # Identify foo := bar
+
+    if re.match(defaultStatement, statement): return True
+    if re.match(varStatement, statement): return True
+
+    return False
 
 def isNumber(statement):
-    numberRegex = re.compile("[0-9]")
+    numberRegex = re.compile("(([0-9]+)(\.|\,[0-9]+)?)|(\.?[0-9]+)\d+") # identify natural/real numbers
 
     if re.match(numberRegex, statement): return True
 
-    return True
+    return False
 
-################################# Regex #################################
-# \/\/  => (\/\/).*
-# #     => (\#).*
-# /**/  => 
 def isCommentary(statement):
     hastagComment = re.compile("(\#).*")
     doubleSlash = re.compile("(\/\/).*")
@@ -28,10 +29,21 @@ def isCommentary(statement):
     return False
 
 def isVariableIdentifier(statement):
-    return True
+    variableIdentifier = re.compile("^[A-z]\w+")
 
+    if re.match(variableIdentifier,statement): return True
+
+    return False
+
+def checkType(statement): 
+    if isAttributionClass(statement): return "attribution"
+    if isCommentary(statement): return "commentary"
+    if isVariableIdentifier(statement): return "variable"
+    return "invalid"
 
 statement=(input("Entre com o statement: "))
 print ("Statement: ", statement)
 
+typeVariable=checkType(statement)
 
+print (statement, typeVariable)
