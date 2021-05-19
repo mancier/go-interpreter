@@ -20,11 +20,11 @@ def isNumber(statement):
 def isCommentary(statement):
     hastagComment = re.compile("(\#).*")
     doubleSlash = re.compile("(\/\/).*")
-    # blockCommentary = re.compile("")
+    blockCommentary = re.compile("\/\*(\*(?!\/)|[^*])*\*\/")
     
     if re.match(hastagComment,statement): return True
     if re.match(doubleSlash,statement): return True
-    # if statement.match(blockCommentary): return True
+    if statement.match(blockCommentary): return True
     
     return False
 
