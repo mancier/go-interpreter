@@ -1,6 +1,5 @@
 import re
 
-# (^[A-z]\w+)(\:\=)\s
 def isAttributionClass(statement):
     varStatement = re.compile("(?<=(^var\s))[A-z]{0,}\w+") # identify var foo
     defaultStatement = re.compile("([A-z])(?<!\:\=)\w+") # Identify foo := bar
@@ -37,14 +36,11 @@ def isVariableIdentifier(statement):
 
 def checkType(statement): 
     if isAttributionClass(statement): return "attribution"
-    if isCommentary(statement): return "commentary"
     if isVariableIdentifier(statement): return "variable"
     if isNumber(statement): return "number"
+    if isCommentary(statement): return "commentary"
     return "invalid"
 
 statement=(input("Entre com o statement: "))
-print ("Statement: ", statement)
-
 typeVariable=checkType(statement)
-
 print (statement, typeVariable)
