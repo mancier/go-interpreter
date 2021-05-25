@@ -2,7 +2,7 @@ import re
 
 def isAttribution(statement):
     varStatement = re.compile("(?<=(^var\s))[A-z]{0,}\w+") # identify var foo  
-    defaultStatement = re.compile("([A-z])(?<!\:\=)\w+") # Identify foo := bar
+    defaultStatement = re.compile("([A-z]{0,})(?<!\:\=)\w+") # Identify foo := bar
 
     if re.match(defaultStatement, statement): return True
     if re.match(varStatement, statement): return True
